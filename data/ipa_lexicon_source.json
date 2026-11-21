@@ -1,0 +1,24 @@
+{
+  "repository": "https://github.com/open-dict-data/ipa-dict",
+  "retrieved": "2026-11-18",
+  "files": {
+    "en_UK.txt": {
+      "url": "https://raw.githubusercontent.com/open-dict-data/ipa-dict/master/data/en_UK.txt",
+      "sha256": "221394caef0cf723b4f2df81a98ac33191293257b88aed5b1fb89466d3a0dc77"
+    },
+    "IPA_DICT_LICENSE.txt": {
+      "url": "https://raw.githubusercontent.com/open-dict-data/ipa-dict/master/LICENSE",
+      "sha256": "2c6a7e4c71f834a8fc0114fa4f65ca85e80bc4b4dc7ed08746963a09a7b0d177"
+    },
+    "EN_UK_LICENSE.txt": {
+      "url": "https://raw.githubusercontent.com/leoboiko/ipacards/master/LICENSE",
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903"
+    }
+  },
+  "upstream": {
+    "name": "ipacards",
+    "author": "leoboiko",
+    "url": "https://github.com/leoboiko/ipacards",
+    "license": "GPL-3.0"
+  }
+}

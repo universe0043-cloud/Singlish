@@ -1,0 +1,676 @@
+{
+  "configured_model": "deepseek-flash",
+  "prompt_version": "pronunciation-v0.3-pilot-02",
+  "prompt_sha256": "629b9f98ff6caba1d7197f63ab32f2a18def88471bb212d33880537f9d392cf6",
+  "example_ids": [
+    "pilot-001",
+    "pilot-003",
+    "pilot-010",
+    "pilot-019",
+    "pilot-008",
+    "pilot-016"
+  ],
+  "results": [
+    {
+      "input_text": "We can walk in.",
+      "status": "passed",
+      "source": "DeepSeek",
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "raw_response": "{\"annotations\": [{\"text\": \"can\", \"category\": \"weak_forms\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和重读的 can 对照。\"}, {\"text\": \"walk in\", \"category\": \"linking\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。\"}]}",
+      "validated_output": {
+        "input_text": "We can walk in.",
+        "analysis_source": "configured_model",
+        "annotations": [
+          {
+            "text": "can",
+            "start": 3,
+            "end": 6,
+            "category": "weak_forms",
+            "evidence": "text_candidate",
+            "actual_pronunciation": "uncertain",
+            "speaking_tip_zh": "把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和重读的 can 对照。"
+          },
+          {
+            "text": "walk in",
+            "start": 7,
+            "end": 14,
+            "category": "linking",
+            "evidence": "text_candidate",
+            "actual_pronunciation": "uncertain",
+            "speaking_tip_zh": "两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "input_text": "Meet me next Monday.",
+      "status": "passed",
+      "source": "DeepSeek",
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "raw_response": "{\"annotations\": [{\"text\": \"Meet me\", \"category\": \"linking\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/。\"}, {\"text\": \"me\", \"category\": \"weak_forms\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"me 不重读时可轻读成 /mi/ 或更短的 /mɪ/，把重音放在 Meet 和 Monday 上。\"}, {\"text\": \"next Monday\", \"category\": \"elision\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。\"}]}",
+      "validated_output": {
+        "input_text": "Meet me next Monday.",
+        "analysis_source": "configured_model",
+        "annotations": [
+          {
+            "text": "Meet me",
+            "start": 0,
+            "end": 7,
+            "category": "linking",
+            "evidence": "text_candidate",
+            "actual_pronunciation": "uncertain",
+            "speaking_tip_zh": "两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/。"
+          },
+          {
+            "text": "me",
+            "start": 5,
+            "end": 7,
+            "category": "weak_forms",
+            "evidence": "text_candidate",
+            "actual_pronunciation": "uncertain",
+            "speaking_tip_zh": "me 不重读时可轻读成 /mi/ 或更短的 /mɪ/，把重音放在 Meet 和 Monday 上。"
+          },
+          {
+            "text": "next Monday",
+            "start": 8,
+            "end": 19,
+            "category": "elision",
+            "evidence": "text_candidate",
+            "actual_pronunciation": "uncertain",
+            "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。"
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "input_text": "I'm gonna buy a better seat.",
+      "status": "validation_failed",
+      "source": "DeepSeek",
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "raw_response": "{\"annotations\": [{\"text\": \"gonna\", \"category\": \"reduction\", \"evidence\": \"text_observed\", \"speaking_tip_zh\": \"用 I am going to buy 表达同一个意思，再练习例句中带 gonna 的非正式说法。\"}, {\"text\": \"a\", \"category\": \"weak_forms\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"a 在 better 前不重读时，可以轻读成 /ə/，把重音放在 better 的第一个音节。\"}, {\"text\": \"buy a\", \"category\": \"linking\", \"evidence\": \"text_candidate\", \"speaking_tip_zh\": \"两词之间没有停顿时，让 buy 末尾的 /aɪ/ 滑向 a 开头的元音，注意不要另加停顿；这只是一种可能的连读读法。\"}]}",
+      "validated_output": null,
+      "error": "annotations[1] text 在原文中重复出现，需要唯一的原文 context。"
+    },
+    {
+      "input_text": "Go slow.",
+      "status": "passed",
+      "source": "DeepSeek",
+      "model": "deepseek-flash",
+      "finish_reason": "stop",
+      "raw_response": "{\"annotations\": []}",
+      "validated_output": {
+        "input_text": "Go slow.",
+        "analysis_source": "configured_model",
+        "annotations": []
+      },
+      "error": null
+    }
+  ],
+  "comparison": {
+    "reference_note": "按 v0.3 指南人工拟定的四句调试参考。原始响应按片段和类别比较，校验结果再核对字符位置。",
+    "reference_scope": "只比较四句中的教学候选；不根据文本确认实际发音，也不作为独立测试集成绩。",
+    "boundary_note": "me 的弱读未纳入本批参考，列为额外候选待复核，不据此断言语言学错误。",
+    "pilot_01": {
+      "raw_totals": {
+        "correct": 4,
+        "outside_reference": 4,
+        "missed": 2,
+        "scored_sentences": 4
+      },
+      "validated_totals": {
+        "correct": 4,
+        "outside_reference": 4,
+        "missed": 2,
+        "scored_sentences": 4
+      },
+      "by_sentence": [
+        {
+          "input_text": "We can walk in.",
+          "status": "passed",
+          "reference": [
+            {
+              "text": "can",
+              "category": "weak_forms",
+              "start": 3,
+              "end": 6
+            },
+            {
+              "text": "walk in",
+              "category": "linking",
+              "start": 7,
+              "end": 14
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "can",
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和表示强调或对比时的完整读法对照。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "walk in",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "can",
+                  "start": 3,
+                  "end": 6,
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和表示强调或对比时的完整读法对照。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "walk in",
+                  "start": 7,
+                  "end": 14,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          }
+        },
+        {
+          "input_text": "Meet me next Monday.",
+          "status": "passed",
+          "reference": [
+            {
+              "text": "next Monday",
+              "category": "elision",
+              "start": 8,
+              "end": 19
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "Meet me",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/，先读清 /t/ 再加快过渡。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "next Monday",
+                  "category": "elision",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "Meet me",
+                  "start": 0,
+                  "end": 7,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/，先读清 /t/ 再加快过渡。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "next Monday",
+                  "start": 8,
+                  "end": 19,
+                  "category": "elision",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          }
+        },
+        {
+          "input_text": "I'm gonna buy a better seat.",
+          "status": "passed",
+          "reference": [
+            {
+              "text": "gonna",
+              "category": "reduction",
+              "start": 4,
+              "end": 9
+            },
+            {
+              "text": "a",
+              "category": "weak_forms",
+              "start": 14,
+              "end": 15
+            },
+            {
+              "text": "better",
+              "category": "sound_change",
+              "start": 16,
+              "end": 22
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "gonna",
+                  "category": "reduction",
+                  "evidence": "text_observed",
+                  "speaking_tip_zh": "用 I'm going to buy 表达同一个意思，再练习例句中带 gonna 的非正式说法。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "gonna",
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "把重音放在 buy 上，试着把不重读的 gonna 轻读成较快的 /ˈɡənə/。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "buy a",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 buy 末尾的 /j/ 自然接上 a 开头的元音。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "a better",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 a 的 /ə/ 自然接上 better 开头的辅音，保持流畅过渡。"
+                },
+                "judgment": "outside_reference"
+              }
+            ],
+            "missed": [
+              {
+                "text": "a",
+                "category": "weak_forms",
+                "start": 14,
+                "end": 15
+              },
+              {
+                "text": "better",
+                "category": "sound_change",
+                "start": 16,
+                "end": 22
+              }
+            ]
+          },
+          "validated_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "gonna",
+                  "start": 4,
+                  "end": 9,
+                  "category": "reduction",
+                  "evidence": "text_observed",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "用 I'm going to buy 表达同一个意思，再练习例句中带 gonna 的非正式说法。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "gonna",
+                  "start": 4,
+                  "end": 9,
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "把重音放在 buy 上，试着把不重读的 gonna 轻读成较快的 /ˈɡənə/。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "buy a",
+                  "start": 10,
+                  "end": 15,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 buy 末尾的 /j/ 自然接上 a 开头的元音。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "a better",
+                  "start": 14,
+                  "end": 22,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 a 的 /ə/ 自然接上 better 开头的辅音，保持流畅过渡。"
+                },
+                "judgment": "outside_reference"
+              }
+            ],
+            "missed": [
+              {
+                "text": "a",
+                "category": "weak_forms",
+                "start": 14,
+                "end": 15
+              },
+              {
+                "text": "better",
+                "category": "sound_change",
+                "start": 16,
+                "end": 22
+              }
+            ]
+          }
+        },
+        {
+          "input_text": "Go slow.",
+          "status": "passed",
+          "reference": [],
+          "raw_review": {
+            "returned": [],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [],
+            "missed": []
+          }
+        }
+      ]
+    },
+    "pilot_02": {
+      "raw_totals": {
+        "correct": 5,
+        "outside_reference": 3,
+        "missed": 1,
+        "scored_sentences": 4
+      },
+      "validated_totals": {
+        "correct": 3,
+        "outside_reference": 2,
+        "missed": 0,
+        "scored_sentences": 3,
+        "rejected_sentences": 1
+      },
+      "by_sentence": [
+        {
+          "input_text": "We can walk in.",
+          "status": "passed",
+          "reference": [
+            {
+              "text": "can",
+              "category": "weak_forms",
+              "start": 3,
+              "end": 6
+            },
+            {
+              "text": "walk in",
+              "category": "linking",
+              "start": 7,
+              "end": 14
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "can",
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和重读的 can 对照。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "walk in",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "can",
+                  "start": 3,
+                  "end": 6,
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "把重音放在 walk 上，试着把不重读的 can 轻读成 /kən/，再和重读的 can 对照。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "walk in",
+                  "start": 7,
+                  "end": 14,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 walk 末尾的 /k/ 自然接上 in 开头的元音。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          }
+        },
+        {
+          "input_text": "Meet me next Monday.",
+          "status": "passed",
+          "reference": [
+            {
+              "text": "next Monday",
+              "category": "elision",
+              "start": 8,
+              "end": 19
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "Meet me",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "me",
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "me 不重读时可轻读成 /mi/ 或更短的 /mɪ/，把重音放在 Meet 和 Monday 上。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "next Monday",
+                  "category": "elision",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "Meet me",
+                  "start": 0,
+                  "end": 7,
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "两词间没有停顿时，让 Meet 末尾的 /t/ 自然接上 me 开头的 /m/。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "me",
+                  "start": 5,
+                  "end": 7,
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "me 不重读时可轻读成 /mi/ 或更短的 /mɪ/，把重音放在 Meet 和 Monday 上。"
+                },
+                "judgment": "outside_reference"
+              },
+              {
+                "annotation": {
+                  "text": "next Monday",
+                  "start": 8,
+                  "end": 19,
+                  "category": "elision",
+                  "evidence": "text_candidate",
+                  "actual_pronunciation": "uncertain",
+                  "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 Monday 的 /m/。"
+                },
+                "judgment": "correct"
+              }
+            ],
+            "missed": []
+          }
+        },
+        {
+          "input_text": "I'm gonna buy a better seat.",
+          "status": "validation_failed",
+          "reference": [
+            {
+              "text": "gonna",
+              "category": "reduction",
+              "start": 4,
+              "end": 9
+            },
+            {
+              "text": "a",
+              "category": "weak_forms",
+              "start": 14,
+              "end": 15
+            },
+            {
+              "text": "better",
+              "category": "sound_change",
+              "start": 16,
+              "end": 22
+            }
+          ],
+          "raw_review": {
+            "returned": [
+              {
+                "annotation": {
+                  "text": "gonna",
+                  "category": "reduction",
+                  "evidence": "text_observed",
+                  "speaking_tip_zh": "用 I am going to buy 表达同一个意思，再练习例句中带 gonna 的非正式说法。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "a",
+                  "category": "weak_forms",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "a 在 better 前不重读时，可以轻读成 /ə/，把重音放在 better 的第一个音节。"
+                },
+                "judgment": "correct"
+              },
+              {
+                "annotation": {
+                  "text": "buy a",
+                  "category": "linking",
+                  "evidence": "text_candidate",
+                  "speaking_tip_zh": "两词之间没有停顿时，让 buy 末尾的 /aɪ/ 滑向 a 开头的元音，注意不要另加停顿；这只是一种可能的连读读法。"
+                },
+                "judgment": "outside_reference"
+              }
+            ],
+            "missed": [
+              {
+                "text": "better",
+                "category": "sound_change",
+                "start": 16,
+                "end": 22
+              }
+            ]
+          },
+          "error": "annotations[1] text 在原文中重复出现，需要唯一的原文 context。",
+          "validated_review": null
+        },
+        {
+          "input_text": "Go slow.",
+          "status": "passed",
+          "reference": [],
+          "raw_review": {
+            "returned": [],
+            "missed": []
+          },
+          "validated_review": {
+            "returned": [],
+            "missed": []
+          }
+        }
+      ]
+    }
+  }
+}

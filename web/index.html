@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFFAE5">
+  <title>Singlish · 把喜欢的歌，变成英语课</title>
+  <link rel="icon" href="/assets/headphone-note.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header class="masthead">
+      <button id="home-button" class="brand-home" type="button" title="返回首页" aria-label="返回首页">
+        <img class="wordmark" src="/assets/singlish.svg" alt="Singlish" width="283" height="106">
+      </button>
+      <nav aria-label="主导航">
+        <button type="button" class="text-button home-nav" data-dialog="guide">使用指南</button>
+        <button type="button" class="text-button home-nav" data-dialog="about">关于</button>
+        <button type="button" id="change-song" class="text-button" hidden>更换歌曲 <span aria-hidden="true">↗</span></button>
+      </nav>
+    </header>
+
+    <section id="home" aria-labelledby="upload-title">
+      <div class="hero">
+        <img class="note-illustration" src="/assets/headphone-note.svg" alt="带笑脸、戴蓝色耳机的音符" width="213" height="233">
+        <h1 id="upload-title">把喜欢的歌，变成英语课。</h1>
+        <p class="hero-description">上传一首英文歌，听懂，也读得更自然。</p>
+        <form id="upload-form">
+          <input id="audio" class="visually-hidden" type="file" accept=".mp3,audio/mpeg" aria-label="选择 MP3 文件" aria-describedby="upload-help" tabindex="-1">
+          <button type="button" id="upload-button" class="primary upload-button"><span aria-hidden="true">↑</span> 上传歌曲</button>
+        </form>
+        <p class="upload-help" id="upload-help">MP3 · 最大 30 MB</p>
+      </div>
+      <section class="follow-example" aria-label="跟读示例">
+        <div class="example-intro"><span class="eyebrow">跟读示例</span><p>从一个小小的连读开始。</p></div>
+        <div class="example-reading">
+          <p>Take it <span class="sample-mark">easy.</span></p>
+          <p class="example-ipa"><span class="example-reading-label">常规读法</span> /teɪk ɪt ˈiːzi/<br><span class="example-reading-label">口语示范</span> /teɪk‿ɪt‿ˈiːzi/</p>
+          <p class="muted">相邻词之间不必停顿，轻轻连起来读。</p>
+        </div>
+      </section>
+    </section>
+
+    <div id="activity" hidden>
+      <p id="status" role="status"></p>
+      <progress id="progress" max="100" aria-label="处理进度"></progress>
+    </div>
+
+    <section id="results" aria-labelledby="song-title" tabindex="-1" hidden>
+      <header class="song-heading">
+        <p class="eyebrow">这首歌，慢慢听。</p>
+        <h1 id="song-title"></h1>
+      </header>
+      <audio id="clip-player" preload="metadata"></audio>
+      <div class="song-player" id="song-player" aria-label="歌曲播放器">
+        <button id="track-toggle" class="track-toggle" type="button" aria-label="播放歌曲">▶</button>
+        <input id="track-position" type="range" min="0" max="1" step="0.1" value="0" aria-label="歌曲播放进度">
+        <span id="track-time" class="track-time">00:00 / 00:00</span>
+      </div>
+      <div id="playback" hidden>
+        <p id="playback-message" role="status"></p>
+        <button id="stop-clip" type="button" class="text-button" hidden>停止试听</button>
+      </div>
+      <div class="lyrics-heading">
+        <h2 id="results-title">歌词与跟读</h2>
+        <p class="muted">点击标记看提示。口语示范是可选的练习读法。</p>
+      </div>
+      <ul class="pronunciation-legend" aria-label="五类发音图例">
+        <li><span class="category-label linking">连读</span></li>
+        <li><span class="category-label weak_forms">弱读</span></li>
+        <li><span class="category-label elision">省音</span></li>
+        <li><span class="category-label assimilation">变音</span></li>
+        <li><span class="category-label reduction">缩读</span></li>
+      </ul>
+      <div id="result-notice" hidden>
+        <p id="result-message" role="status"></p>
+        <button id="retry-button" class="text-button" type="button" hidden>重试发音分析 ↗</button>
+      </div>
+      <p id="transcript-note" class="muted" hidden>转写中断，已保留当前歌词和试听。</p>
+      <div id="annotated-lyrics" aria-label="标注歌词"></div>
+    </section>
+
+    <dialog id="guide" aria-labelledby="guide-title">
+      <div class="section-title"><h2 id="guide-title">从喜欢的歌开始</h2><button type="button" class="text-button dialog-close" aria-label="关闭使用指南">关闭 ×</button></div>
+      <ol><li>上传一首英文 MP3，等待歌词自动生成。</li><li>点击歌词左侧的播放入口，听这一句。</li><li>点击蓝色词语或音标，在原句下方查看跟读提示。</li></ol>
+      <p class="muted">音标是跟读示范。歌曲里的重音与节奏可能有所不同。发现错词时，可在对应行点“改词”。</p>
+      <details class="alternate">
+        <summary>也可以直接输入歌词</summary>
+        <form id="text-form">
+          <label for="lyrics">英文歌词</label>
+          <textarea id="lyrics" rows="5" maxlength="12000"></textarea>
+          <button id="text-button" type="submit" class="primary">分析这段歌词</button>
+        </form>
+      </details>
+    </dialog>
+    <dialog id="about" aria-labelledby="about-title">
+      <div class="section-title"><h2 id="about-title">关于 Singlish</h2><button type="button" class="text-button dialog-close" aria-label="关闭关于">关闭 ×</button></div>
+      <p>把听歌的时间，变成练习英语的时间。Singlish 帮你发现歌曲里的弱读、连读、省音、变音与口语缩读。</p>
+      <p class="muted">音频在本机转写，歌词会发送至 DeepSeek 进行发音分析。请上传你有权使用的录音。</p>
+    </dialog>
+  </main>
+</body>
+</html>

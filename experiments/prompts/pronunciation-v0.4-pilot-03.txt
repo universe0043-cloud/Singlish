@@ -1,0 +1,74 @@
+pronunciation-v0.4-pilot-03
+按 Singlish 发音试标指南 v0.4 标注用户消息中的英文原句。只返回一个 JSON 对象，
+结构为 {"annotations": [...] }，没有符合规则的标注时返回 {"annotations": []}。
+每项必须包含 text、category、evidence 和 speaking_tip_zh。text 逐字复制一段连续原文，
+保留大小写、空格和标点。重复片段用额外的 context 字段消歧，context 必须是原文中
+只出现一次且只包含一次完整的 text 的连续片段。text 按完整词或词组匹配。字符位置由 Python 计算，不返回 start 或 end。
+允许多项、区间重叠以及同一区间的不同类别。同类别、同一区间只标一次。
+
+只使用以下类别。中文提示写明成立条件，输入没有音频，不能断言实际发音。
+- weak_forms：有可教弱式且可能不重读的功能词。标单词。回答或对比重点按完整读法，
+  例如 Yes, I can. 的 can 不标弱读。
+- linking：标连续两个原文词。按词界音素判断，收录辅音接元音，
+  以及无明显停顿时可用轻滑音 [j] 或 [w] 过渡的元音接元音。提示写出具体过渡音。
+  辅音接辅音、元音接辅音和需要先省去其他音才能成立的情况都超出本版范围。
+  did I 可标连读，did you 的 /d/ 与 /j/ 合音属于变音。
+- elision：前词以辅音丛结尾、末音是 /t/ 或 /d/，后词以辅音开始时才考虑。
+  标连续两个词，并给出保留末音的读法供对照。next item 不按 next week 标注。
+  and chips 的省音本版暂缓，and 的弱读已覆盖这一听辨点。
+- sound_change：包括 /d/ 或 /t/ 与 /j/ 合音（例如 Don't you 的 /t/ 与 /j/），
+  相邻辅音导致发音部位变化（例如 ten people），以及词内美式 /t/ 轻弹音 [ɾ]。
+  跨词变化标词对，词内变化标整词。轻弹音注明常见美式读法及重音条件。
+- reduction：本批仅标原文中直接出现的非正式拼写 wanna、gonna、gotta、gimme，
+  保留原大小写；I'm、Don't、won't 等常规缩写不属于本版口语缩读。
+
+reduction 的 evidence 为 text_observed，其余四类为 text_candidate。
+发音确定性由 Python 统一设为 uncertain，请省略 actual_pronunciation。
+
+返回 JSON 前，针对原句逐项检查五类：
+1. linking：逐个检查相邻词的词界音素。正例 Hold on，/d/ 接元音；
+   正例 see it，/iː/ 接 /ɪ/ 时可轻带 [j]；正例 go out，/oʊ/ 接 /aʊ/ 时可轻带 [w]。
+   元音间的轻滑音只是过渡。在中文提示里写出 [j] 或 [w]，并说明两词之间无明显停顿的条件。
+   反例 turn left，/n/ 接 /l/，属于辅音接辅音。元音接辅音也不标。
+2. weak_forms：逐词查找有常见弱式且可能不承载重音的功能词，尤其要找冠词 a。
+   不重读的 a 可读 /ə/，即使它所在的两词交界不符合连读，也可单独标 a。
+   非正式拼写如 gonna 按 reduction 教学，不因读得快或轻就另标 weak_forms。
+3. elision：逐个检查词界，前词以辅音丛结尾且最后是 /t/ 或 /d/，后词以辅音起始时，
+   考虑末音在快读中省去的候选，并用保留末音的读法对照。
+4. sound_change：既检查跨词音变，也逐词检查词内音变。示例 water 中，
+   /t/ 在重读音节之后、较轻音节之前可读成常见美式轻弹音 [ɾ]，标整个词。
+5. reduction：只标原句中直接出现的非正式缩读拼写。同一区间加第二类时，
+   必须在中文提示里指出独立的发音现象。例如 gotta 的缩读拼写归 reduction，
+   重读后、较轻音节前的美式 [ɾ] 则是独立的 sound_change。
+
+五类逐项检查后，保留符合规则的全部标注，包括允许重叠的区间。
+没有符合项时，返回 {"annotations": []}。
+以下是 v0.4 数据示例，仅用于说明规则和返回格式。
+
+pilot-001
+原句：I can wait.
+JSON：{"annotations": [{"text": "can", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "把重音放在 wait 上，试着把不重读的 can 轻读成 /kən/，再和单独重读的 can 对照。"}]}
+
+pilot-003
+原句：Fish and chips, please.
+JSON：{"annotations": [{"text": "and", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "把重音放在 Fish 和 chips 上，试着用较短的 /ən/ 读中间的 and。"}, {"text": "Fish and", "category": "linking", "evidence": "text_candidate", "speaking_tip_zh": "两词间没有停顿时，让 Fish 末尾的 /ʃ/ 自然接上 and 开头的元音。"}]}
+
+pilot-010
+原句：See you next week.
+JSON：{"annotations": [{"text": "next week", "category": "elision", "evidence": "text_candidate", "speaking_tip_zh": "先读出 next 词尾的 /t/，再试着在快读中省去 /t/，直接过渡到 week 的 /w/。"}, {"text": "you", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "普通告别时，如果 you 不重读，可以试试 /jə/，再与强调对方时的完整读法对照。"}]}
+
+pilot-019
+原句：I gotta leave soon.
+JSON：{"annotations": [{"text": "gotta", "category": "reduction", "evidence": "text_observed", "speaking_tip_zh": "用 I have to leave soon 表达同一个意思，再练习例句中带 gotta 的非正式说法。"}, {"text": "gotta", "category": "sound_change", "evidence": "text_candidate", "speaking_tip_zh": "练习一种常见美式读法：首音节重读、后一音节较轻时，/t/ 可以用舌尖轻弹音 [ɾ] 来读。"}]}
+
+pilot-008
+原句：Hold on a second.
+JSON：{"annotations": [{"text": "Hold on", "category": "linking", "evidence": "text_candidate", "speaking_tip_zh": "用同一口气读 Hold on，让 Hold 末尾的 /d/ 接上 on 开头的元音。"}, {"text": "a", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "a 在 second 前不重读时，可以轻读成 /ə/，把重音放在 second 的第一个音节。"}, {"text": "on a", "category": "linking", "evidence": "text_candidate", "speaking_tip_zh": "两词之间没有停顿时，让 on 末尾的 /n/ 自然接上 a 开头的元音。"}]}
+
+pilot-016
+原句：Can I have some water?
+JSON：{"annotations": [{"text": "water", "category": "sound_change", "evidence": "text_candidate", "speaking_tip_zh": "练习一种常见美式读法：重读第一个音节，让 /t/ 在进入较轻的第二音节前舌尖轻弹一次 [ɾ]。"}, {"text": "Can", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "在普通请求里，如果 Can 不重读，试着轻读成 /kən/，再用重读的读法对照。"}, {"text": "some", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "当 some 只是表示不定量时，试着轻读成 /səm/，把重音放在 water 上。"}, {"text": "Can I", "category": "linking", "evidence": "text_candidate", "speaking_tip_zh": "先慢读 Can I，再不加停顿，让 Can 末尾的 /n/ 自然接上 I 开头的元音。"}]}
+
+pilot-020
+原句：Gimme a second.
+JSON：{"annotations": [{"text": "Gimme", "category": "reduction", "evidence": "text_observed", "speaking_tip_zh": "先分开读 Give me，再练习连贯读 Gimme，对照 Give me a second 的节奏。"}, {"text": "a", "category": "weak_forms", "evidence": "text_candidate", "speaking_tip_zh": "让 a 在 second 前轻短地读成 /ə/，把重音放在 second 的第一个音节。"}, {"text": "Gimme a", "category": "linking", "evidence": "text_candidate", "speaking_tip_zh": "两词之间没有停顿时，让 Gimme 末尾的 /i/ 自然接上 a 的 /ə/，中间可以轻轻带过 [j]。"}]}
